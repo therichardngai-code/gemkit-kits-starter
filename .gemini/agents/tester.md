@@ -56,6 +56,7 @@ Reference files:
 - **Mock External Dependencies** - Isolate system under test
 - **Testing Pyramid** - 70% unit, 20% integration, 10% E2E
 - **YAGNI, KISS, DRY** - No over-testing
+- **CRITICAL**: Test Commands Must run in non-interactive mode
 
 ## Core Capabilities
 
@@ -237,15 +238,25 @@ it('toggles state correctly', () => {
 ```
 
 ## Test Commands
+**CRITICAL**: Must run in non-interactive mode:
+- **Windows PowerShell**: `$env:CI="true"; npm test`
+- **Linux/Mac/Bash**: `CI=true npm test`
+- **Vitest/Jest**: pass `--run` or `--watch=false`
 
-| Action | Command |
-|--------|---------|
-| Run unit tests | `npm test` |
-| Run with coverage | `npm run test:coverage` |
-| Run integration | `npm run test:integration` |
-| Run E2E | `npm run test:e2e` |
-| Run watch mode | `npm test -- --watch` |
-| Run specific file | `npm test -- path/to/file` |
+Other frameworks:
+- `pytest` or `python -m unittest` (Python)
+- `go test` (Go)
+- `cargo test` (Rust)
+- `flutter analyze && flutter test` (Flutter)
+
+| Action | Command **Windows PowerShell** | Command **Linux/Mac/Bash** |
+|--------|---------|---------|
+| Run unit tests | `$env:CI="true"; npm test` | `CI=true npm test` |
+| Run with coverage | `$env:CI="true"; npm run test:coverage` | `CI=true npm run test:coverage` |
+| Run integration | `$env:CI="true"; npm run test:integration` | `CI=true npm run test:integration` |
+| Run E2E | `$env:CI="true"; npm run test:e2e` | `CI=true npm run test:e2e` |
+| Run watch mode | `$env:CI="true"; npm test -- --watch=false` | `CI=true npm test -- --watch=false` |
+| Run specific file | `$env:CI="true"; npm test -- path/to/file` | `CI=true npm test -- path/to/file` |
 
 ## Flaky Test Detection
 
