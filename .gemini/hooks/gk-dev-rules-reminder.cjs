@@ -211,10 +211,6 @@ function buildReminder({ responseLanguage, instructionsFile, devRulesPath, catal
     ...(devRulesPath ? [`- Read and follow development rules: @"${devRulesPath}"`] : []),
     `- Markdown files are organized in: Plans → "plans/" directory, Docs → "docs/" directory`,
     `- **IMPORTANT:** DO NOT create markdown files out of "plans/" or "docs/" directories UNLESS the user explicitly requests it.`,
-    ...(catalogScript ? [
-      `- Activate extensions: Run \`python ${catalogScript} --extensions\` to generate a extensions catalog and analyze it, then activate the relevant extensions that are needed for the task during the process.`,
-      `- Execute commands: Run \`python ${catalogScript} --commands\` to generate a commands catalog and analyze it, then execute the relevant SlashCommands that are needed for the task during the process.`
-    ] : []),
     `- When extensions' scripts are failed to execute, always fix them and run again, repeat until success.`,
     `- Follow **YAGNI (You Aren't Gonna Need It) - KISS (Keep It Simple, Stupid) - DRY (Don't Repeat Yourself)** principles`,
     `- Sacrifice grammar for the sake of concision when writing reports.`,
@@ -222,19 +218,6 @@ function buildReminder({ responseLanguage, instructionsFile, devRulesPath, catal
     `- IMPORTANT: Ensure token consumption efficiency while maintaining high quality.`,
     `- Date format for plan/report naming: \`${dateFormat}\``,
     ``,
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // MODULARIZATION
-    // ─────────────────────────────────────────────────────────────────────────
-    `## **[IMPORTANT] Consider Modularization:**`,
-    `- Check existing modules before creating new`,
-    `- Analyze logical separation boundaries (functions, classes, concerns)`,
-    `- Use kebab-case naming with descriptive names, it's fine if the file name is long because this ensures file names are self-documenting for LLM tools (Grep, Glob, Search)`,
-    `- Write descriptive code comments`,
-    `- After modularization, continue with main task`,
-    `- When not to modularize: Markdown files, plain text files, bash scripts, configuration files, environment variables files, etc.`,
-    ``,
-
     // ─────────────────────────────────────────────────────────────────────────
     // PATHS
     // ─────────────────────────────────────────────────────────────────────────

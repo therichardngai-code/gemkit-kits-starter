@@ -27,7 +27,7 @@ gk agent search "{task}"
 ---
 
 ## Workflow Sequence
-**Rules:** Follow steps 0-5 in order. Each step requires output marker starting with "✓ Step N:". Create an artifact and track strictly *(DO NOT SKIP STEPS)* any step. Mark each complete in TodoWrite before proceeding. *DO NOT SKIP STEPS*.
+**Rules:** Follow steps 1-5 in order. Each step requires output marker starting with "✓ Step N:". Create an artifact and track strictly *(DO NOT SKIP STEPS)* any step. Mark each complete in TodoWrite before proceeding. *DO NOT SKIP STEPS*.
 **IMPORTANT** Implementing Checklist: {plan-name} - phase-XX-{name} in @plans/{plan-name}/artifacts
 
 ### Step 1: Plan Detection & Phase Selection

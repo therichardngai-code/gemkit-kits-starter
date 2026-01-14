@@ -19,6 +19,8 @@ jobs:
           tar -czvf starter-${VERSION}.tar.gz \
             --exclude='.git' \
             --exclude='.github' \
+            --exclude='LICENSE' \
+            --exclude='README.md' \
             .
 
       - name: Create Release
