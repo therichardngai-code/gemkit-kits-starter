@@ -34,7 +34,7 @@ gk agent search "{task}"
 ### Step 0: Project setup (MANDATORY)
 
 ```bash
-gk session init
+gk session init antigravity
 ```
 
 **Output:** `✓ Step 0: Completed Project Setup`
