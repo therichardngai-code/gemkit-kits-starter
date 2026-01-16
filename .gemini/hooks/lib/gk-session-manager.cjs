@@ -703,6 +703,28 @@ function updateAgent(projectDir, gkSessionId, agentGkSessionId, updates) {
 }
 
 /**
+ * Update agent's geminiSessionId (for pre-generated agents)
+ * Used when spawn command creates agent first, then hook updates with actual geminiSessionId
+ * @param {string} projectDir
+ * @param {string} gkSessionId - Parent session ID
+ * @param {string} agentGkSessionId - Agent's GK session ID (pre-generated)
+ * @param {string} geminiSessionId - Gemini's actual session ID
+ * @returns {boolean}
+ */
+function updateAgentGeminiSession(projectDir, gkSessionId, agentGkSessionId, geminiSessionId) {
+  const session = getSession(projectDir, gkSessionId);
+  if (!session || !session.agents) return false;
+
+  const agent = session.agents.find(a => a.gkSessionId === agentGkSessionId);
+  if (!agent) return false;
+
+  // Update the geminiSessionId
+  agent.geminiSessionId = geminiSessionId;
+
+  return saveSession(projectDir, gkSessionId, session);
+}
+
+/**
  * End agent session
  * @param {string} projectDir
  * @param {string} gkSessionId
@@ -1571,6 +1593,7 @@ module.exports = {
   // Agent Management
   addAgent,
   updateAgent,
+  updateAgentGeminiSession,
   endAgent,
   updateAgentPrompt,
   getAgents,

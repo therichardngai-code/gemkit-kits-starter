@@ -199,6 +199,8 @@ async function main() {
       skills: agentSkillsEnv ? agentSkillsEnv.split(',').filter(s => s) : [],
       context: agentContextEnv ? agentContextEnv.split(',').filter(c => c) : []
     } : null;
+    // Pre-generated session ID from gk agent spawn (to avoid duplicate agents)
+    const preGeneratedSubSessionId = process.env.GK_SUB_SESSION_ID || null;
 
     // Get project identifiers
     const { projectDir, gkProjectHash } = sessionManager.generateProjectIdentifiers(cwd);
@@ -232,8 +234,18 @@ async function main() {
           agent => agent.geminiSessionId === geminiSessionId && agent.agentRole !== 'main'
         );
 
-        if (alreadyExists) {
+        // Also check if agent with pre-generated ID exists (from gk agent spawn)
+        const preGenExists = preGeneratedSubSessionId && existingAgents.some(
+          agent => agent.gkSessionId === preGeneratedSubSessionId
+        );
+
+        if (alreadyExists || preGenExists) {
           // Sub-agent already registered (BeforeAgent/BeforeModel called after SessionStart)
+          // Or pre-registered by gk agent spawn - just update with geminiSessionId
+          if (preGenExists && !alreadyExists) {
+            // Update the pre-registered agent with geminiSessionId
+            sessionManager.updateAgentGeminiSession(projectDir, parentGkSessionId, preGeneratedSubSessionId, geminiSessionId);
+          }
           // For BeforeModel: DON'T exit - fall through to capture geminiProjectHash
           if (hookEventName !== 'BeforeModel') {
             process.exit(0);
@@ -241,11 +253,9 @@ async function main() {
           // BeforeModel will be handled below - don't register again, just fall through
         } else {
           // First time registration (SessionStart)
-          // Use parent's terminal PID for sub-agent ID (same terminal session)
+          // Use pre-generated ID if available, otherwise generate new one
           const parentPid = parentSession.pid;
-
-          // Generate gkSessionId for sub-agent using parent's PID
-          const subAgentGkSessionId = sessionManager.generateGkSessionId('gemini-sub', parentPid);
+          const subAgentGkSessionId = preGeneratedSubSessionId || sessionManager.generateGkSessionId('gemini-sub', parentPid);
 
           // Resolve geminiProjectHash with priority:
           // 1. .env GEMINI_PROJECT_HASH (if exists)

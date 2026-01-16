@@ -2,9 +2,11 @@ node_modules/
 .distribute-temp/
 .env
 
-# Local distribution file (release creates its own)
+# Local distribution files (release creates its own)
 gemkit-kits-starter.tar.gz
-
+starter-*.tar.gz
+create-release.sh
+create-release.ps1
 # Excluded extensions
 .gemini/extensions/api-design/
 .gemini/extensions/architecture-patterns/
