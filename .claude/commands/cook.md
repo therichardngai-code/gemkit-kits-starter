@@ -80,8 +80,8 @@ ACTIVE_PLAN exists?
 ```
 3. If step 2 is Yes - **Create & Activate New Plan:**
 ```bash
-gk plan create plans/{YYMMDD}-{plan-name}
-gk plan set plans/{YYMMDD}-{plan-name}
+gk plan create {YYMMDD}-{plan-name}
+gk plan set {YYMMDD}-{plan-name}
 
 **Folder Structure:**
 ```
