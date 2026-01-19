@@ -269,7 +269,7 @@ async function main() {
     const catalogScript = resolveScriptPath('generate_catalogs.py');
     const { reportsPath, gitBranch, planLine } = buildPlanContext(gkSessionId, config);
 
-    const output = buildReminder({
+    const systemContext = buildReminder({
       responseLanguage: config.locale?.responseLanguage,
       instructionsFile: config.project?.instructionsFile,
       devRulesPath,
@@ -281,6 +281,14 @@ async function main() {
       gitBranch,
       dateFormat: config.plan?.dateFormat || 'YYMMDD-HHmm'
     });
+
+    // Build structured output - wrap system context only
+    // User prompt is handled by Gemini CLI, we can only append
+    const output = [
+      `<system_context>`,
+      ...systemContext,
+      `</system_context>`
+    ];
 
     // Output JSON format - Gemini CLI expects this structure
     // The additionalContext will be injected into the LLM context

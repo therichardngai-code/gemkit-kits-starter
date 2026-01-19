@@ -1,0 +1,10 @@
+{
+  "name": "multimodal-io",
+  "version": "1.0.0",
+  "description": "Unified multimodal I/O with Gemini 3. Handle text/image/audio/video inputs, generate images (Imagen/Gemini), videos (Veo). Supports media resolution control, thinking levels, streaming.",
+  "license": "MIT",
+  "contextFileName": [
+    "SKILL.md",
+    "references/*.md"
+  ]
+}

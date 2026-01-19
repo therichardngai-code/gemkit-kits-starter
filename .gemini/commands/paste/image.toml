@@ -10,21 +10,27 @@ The user wants to paste an image from their system clipboard and answer user que
 
 ## Clipboard Image Paste
 Image Result:
-!{gk paste-image}
+!{gk paste}
 
 
 ### Instructions
 
-1. **Use the `paste_image` tool** from the clipboard extension to capture the image from the user's clipboard.
+**CRITICAL: The `!{gk paste}` command above has ALREADY executed. Read its output to get the image file path.**
 
-2. **If successful**, inform the user:
+1. **Parse the output above** from `gk paste`:
+   - Look for the **exact file path** in the output (e.g., `C:\\Users\\...\\clipboard-image-xxx.png`)
+   - Extract the full absolute path - DO NOT guess or use placeholder paths
+   - If output shows error, handle the failure case
+
+2. **If successful** (image path found in output above):
    - Confirm the image was captured
-   - Show the file path where it was saved
-   - Show the file size
+   - Show the **EXACT file path** from the output
+   - Show the file size if available
    - Ask what they would like to do with the image
+   - For analysis, use: `python .gemini/extensions/multimodal-io/scripts/mmio.py process "<EXACT_PATH>" --prompt "<query>" --output docs/analysis/image-analysis-YYMMDD-HHMM.md`
 
-3. **If failed**, help the user:
-   - Explain why it failed (no image, tool not installed, etc.)
+3. **If failed** (no path in output or error shown):
+   - Explain why it failed based on the actual error message
    - Provide the appropriate solution based on their platform
    - Suggest they copy an image first and try again
 
@@ -55,12 +61,45 @@ This usually means:
 
 To fix this:
 1. Copy an image first (screenshot, right-click > Copy Image, etc.)
-2. Run /paste again immediately after copying
+2. Run /paste-image again immediately after copying
 
 Need help taking a screenshot?
 - Windows: Win+Shift+S (Snipping Tool)
 - macOS: Cmd+Shift+4 (area) or Cmd+Shift+3 (full screen)
 - Linux: Use your screenshot tool or Print Screen key
+```
+
+### Saving Analysis Results
+
+After completing the analysis, **always offer to save the results**:
+
+```
+Would you like me to save this analysis to a markdown file?
+
+I can create a report with:
+- The image reference/path
+- Full analysis results
+- Any extracted text or code
+- Recommendations (if applicable)
+
+Suggested path: `docs/analysis/image-analysis-YYMMDD-HHMM.md`
+```
+
+**When saving**, include:
+1. Image path/reference at the top
+2. Timestamp of analysis
+3. Full detailed analysis
+4. Any code snippets or extracted content
+5. Action items or recommendations
+
+### Python Command for Analysis
+
+```bash
+# Analyze image with multimodal-io
+python .gemini/extensions/multimodal-io/scripts/mmio.py process "<image_path>" --prompt "Analyze this image in detail"
+
+# Save output to markdown
+python .gemini/extensions/multimodal-io/scripts/mmio.py process "<image_path>" --prompt "Analyze this image" --output docs/analysis/image-analysis.md
 ```
 
 """

@@ -1,6 +1,22 @@
+# Dependencies
 node_modules/
+**/node_modules/
+
+# Build output
+dist/
 .distribute-temp/
+
+# Environment
 .env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
 
 # Local distribution files (release creates its own)
 gemkit-kits-starter.tar.gz
