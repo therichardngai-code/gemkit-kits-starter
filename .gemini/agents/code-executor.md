@@ -30,7 +30,7 @@ description: >
   - Code refactoring with verification
 model: gemini-3-flash-preview
 skills: frontend-development, backend-development
-tools: list_directory, read_file, write_file, glob, search_file_content, replace, run_shell_command(*), web_fetch, google_web_search, save_memory, write_todos
+tools: list_directory, read_file, write_file, glob, search_file_content, replace, run_shell_command(*), web_fetch, google_web_search, save_memory, write_todos,run_shell_command(ls),run_shell_command(npm),run_shell_command(git)
 version: 2.0.0
 ---
 
