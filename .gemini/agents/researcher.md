@@ -30,6 +30,7 @@ description: >
   - Competitive/comparative analysis
 model: gemini-2.5-flash
 skills: research
+tools: list_directory, read_file, write_file, glob, search_file_content, replace, run_shell_command(*), web_fetch, google_web_search, save_memory, write_todos
 version: 2.0.0
 ---
 
