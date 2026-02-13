@@ -23,6 +23,7 @@ Pre-configured AI agents for specialized tasks:
 | Agent | Description | Use For |
 |-------|-------------|---------|
 | `code-executor` | Plan-driven, test-driven code implementation | Feature development, bug fixes, refactoring |
+| `planner` | Expert planning with system design and architecture | Implementation plans, architecture decisions, migrations |
 | `researcher` | Multi-step technical research with source validation | Best practices, technology comparisons, deep dives |
 | `tester` | Comprehensive test generation and coverage analysis | Unit tests, integration tests, E2E, coverage gaps |
 
@@ -33,6 +34,7 @@ Quick-access slash commands:
 | Command | Description |
 |---------|-------------|
 | `/code` | Start coding & testing an existing plan with orchestrated workflow |
+| `/cook` | Implement a feature step-by-step with research, planning, and testing |
 | `/test` | Run tests locally and analyze summary report |
 | `/paste/image` | Paste image from clipboard for analysis |
 
@@ -42,10 +44,13 @@ Domain-specific knowledge and patterns:
 
 | Skill | Description |
 |-------|-------------|
-| `spawn-agent` | Intelligent BM25 search for optimal agent-skill combinations |
+| `spawn-agent` | BM25 search for agent-skill combos with one-shot and interactive modes |
+| `team-orchestrator` | Coordinate multiple AI agents in parallel with gk team commands |
 | `frontend-development` | React 19, TanStack Query/Router, MUI v7, Zustand, Vitest |
 | `backend-development` | Node.js, Python, APIs, OAuth 2.1, PostgreSQL, security |
 | `frontend-design` | Creative UI/UX with modern CSS, animations, distinctive aesthetics |
+| `multimodal-io` | Unified multimodal I/O with Gemini 3 - image/video gen, transcription, streaming |
+| `planning` | Implementation planning with solution design, phase organization, task templates |
 | `testing` | Vitest, Jest, Playwright, MSW, coverage analysis |
 | `research` | Technical investigation with source validation and report generation |
 
@@ -67,17 +72,21 @@ Automated session lifecycle and tool control:
 .gemini/
 ├── agents/                    # Agent definitions
 │   ├── code-executor.md       # Implementation agent
+│   ├── planner.md             # Planning agent
 │   ├── researcher.md          # Research agent
 │   └── tester.md              # Testing agent
 ├── commands/                  # Slash commands
 │   ├── code.toml              # /code command
+│   ├── cook.toml              # /cook command
 │   ├── test.toml              # /test command
 │   └── paste/image.toml       # /paste/image command
 ├── extensions/                # Skills with reference docs
 │   ├── spawn-agent/           # Agent spawning with BM25 search
+│   ├── team-orchestrator/     # Multi-agent coordination
 │   ├── frontend-development/  # Frontend patterns
 │   ├── backend-development/   # Backend patterns
 │   ├── frontend-design/       # UI/UX design
+│   ├── multimodal-io/         # Image/video gen, transcription, streaming
 │   ├── testing/               # Testing patterns
 │   └── research/              # Research methodology
 ├── hooks/                     # Session lifecycle hooks
